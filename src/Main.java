@@ -2,6 +2,8 @@ import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
+
+    //test
     public static void main(String[] args) {
 
 //        Storage storage = new Storage(20);
