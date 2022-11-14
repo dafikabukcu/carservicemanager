@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Person{
 
@@ -14,7 +14,9 @@ public class Person{
 
     public static ArrayList<Person> allPersons = new ArrayList<>();
 
-    public static ArrayList<Person> personsRented = new ArrayList<>();
+    public static ArrayList<Vehicle> personVehicles = new ArrayList<>();
+    public static HashMap<Person, Integer> personsRentedd = new HashMap<>();
+    public static HashMap<Person, Integer> personsDebt = new HashMap<>();
 
     public static ArrayList<Person> personsParked = new ArrayList<>();
 
@@ -39,12 +41,23 @@ public class Person{
 
 
     public static void checkPerson(Person person){
-        int idx = personsRented.indexOf(person);
-        try{
-            int room = personsRented.get(idx).rentedRoom;
-            System.out.println(person.name + " has the room: " + room);
-        }catch (IndexOutOfBoundsException e){
+        Set<Map.Entry<Integer, Person>> authorizedPersons = Storage.authorizedPersons.entrySet();
+        try {
+            int room = personsRentedd.get(person);
+            int debt = personsDebt.get(person);
+            System.out.println(person.name + " has the room: " + room + " Needs to pay: " + debt);
+            for (Map.Entry<Integer, Person> w : authorizedPersons) {
+                if (w.getValue() == person) {
+                    System.out.println("And authorized in Storage: " + w.getKey());
+                }
+            }
+        }catch (NullPointerException e){
             System.out.println(person.name + " " + person.surname + " does not have any rented rooms.");
+            for (Map.Entry<Integer, Person> w : authorizedPersons){
+                if (w.getValue() == person){
+                    System.out.println("But is authorized in Storage: " + w.getKey());
+                }
+            }
         }
     }
 

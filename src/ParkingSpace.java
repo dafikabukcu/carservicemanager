@@ -9,9 +9,6 @@ public class ParkingSpace {
     public static ArrayList<Integer> rentedParkSpaces = new ArrayList<>();
     public static int parkRentalCounter;
     public int parkVolume;
-    public int length;
-    public int width;
-    public int height;
 
 
     public Person personParking;
@@ -24,31 +21,18 @@ public class ParkingSpace {
 
     }
 
-    // With cubic meters
+    // Max m2 per one park space: 35.       Length: 5m + 5m(the area for the car to move in/move out)     Width: 3.5m.
     public ParkingSpace(int parkVolume){
         this.parkVolume = parkVolume;
-        parkID = ThreadLocalRandom.current().nextInt(1, 100);
-        if (parkIDs.contains(parkID)){
+        double parkSpace = parkVolume/35;
+        for (int i=0; i<parkSpace; i++){
             parkID = ThreadLocalRandom.current().nextInt(1, 100);
-            parkIDs.add(parkID);
-        }else{
-            parkIDs.add(parkID);
-        }
-        System.out.println("Total Park Spaces: " + parkIDs.size());
-    }
-
-
-    // With length, width and height
-    public ParkingSpace(int length, int width, int height){
-        this.length = length;
-        this.width = width;
-        this.height = height;
-        parkID = ThreadLocalRandom.current().nextInt(1, 100);
-        if (parkIDs.contains(parkID)){
-            parkID = ThreadLocalRandom.current().nextInt(1, 100);
-            parkIDs.add(parkID);
-        }else{
-            parkIDs.add(parkID);
+            if (parkIDs.contains(parkID)){
+                parkID = ThreadLocalRandom.current().nextInt(1, 100);
+                parkIDs.add(parkID);
+            }else{
+                parkIDs.add(parkID);
+            }
         }
         System.out.println("Total Park Spaces: " + parkIDs.size());
     }
